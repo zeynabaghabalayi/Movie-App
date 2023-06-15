@@ -21,6 +21,10 @@ const Movie = ({ movie }) => {
 export async function getStaticProps(context) {
   const { id } = context.params;
   const res = await axios(`${server}/${id}?api_key=${process.env.API_KEY}&language=en-US&page=1`);
+  if(!res){
+    console.log(res)
+        throw new Error(`Failed to fetch posts - Error ${res.status}`)
+      }
   const movie = res.data;
 
   return {
